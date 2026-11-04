@@ -1,0 +1,11 @@
+{
+  "name": "ross-family-lists",
+  "version": "1.0.0",
+  "description": "Shared family checklist app",
+  "main": "server.js",
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}

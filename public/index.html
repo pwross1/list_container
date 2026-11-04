@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Ross Family Lists</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- 1. Splash Screen -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+      <div class="splash-icon">🛒</div>
+      <h1 class="splash-title">Ross Family Lists</h1>
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+
+  <!-- 2. Main Container -->
+  <div id="app" class="app-container hidden">
+    
+    <!-- View A: List of Lists -->
+    <section id="view-lists" class="view">
+      <header class="header">
+        <h2>My Lists</h2>
+        <button id="btn-add-list" class="btn-primary-small">+ New List</button>
+      </header>
+
+      <ul id="lists-container" class="card-list"></ul>
+    </section>
+
+    <!-- View B: Single List Detail -->
+    <section id="view-items" class="view hidden">
+      <header class="header-items">
+        <button id="btn-back" class="btn-text">‹ Lists</button>
+        <h2 id="current-list-title" class="editable-title">List Name</h2>
+        <button id="btn-rename-list" class="btn-text" title="Rename List">✏️</button>
+      </header>
+
+      <!-- Add Item Form -->
+      <form id="form-add-item" class="input-form">
+        <input type="text" id="input-item-text" placeholder="Add an item..." autocomplete="off" required>
+        <button type="submit" class="btn-submit">Add</button>
+      </form>
+
+      <!-- Active Items -->
+      <ul id="active-items-container" class="card-list"></ul>
+
+      <!-- Checked-Off Accordion -->
+      <div id="completed-section" class="completed-section hidden">
+        <div class="completed-header" id="toggle-completed">
+          <span id="completed-toggle-text">Show Completed (0)</span>
+          <button id="btn-clear-completed" class="btn-danger-text" type="button">Clear All</button>
+        </div>
+        <ul id="completed-items-container" class="card-list completed-list hidden"></ul>
+      </div>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
