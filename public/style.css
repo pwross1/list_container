@@ -87,6 +87,12 @@ body {
   padding-top: 10px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .header h2 { font-size: 24px; font-weight: 700; }
 .header-items h2 {
   font-size: 20px;
