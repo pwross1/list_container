@@ -53,7 +53,31 @@ document.getElementById('btn-add-list').addEventListener('click', () => {
   if (name) socket.emit('create_list', name);
 });
 
+//socket.on('lists_updated', (lists) => {
+ // listsContainer.innerHTML = '';
+ // if (lists.length === 0) {
+ //   listsContainer.innerHTML = `<li style="color:var(--text-muted); text-align:center; padding:20px;">No lists yet. Tap "+ New List" above.</li>`;
+ //   return;
+ // }
+ // lists.forEach((list) => {
+ //   const li = document.createElement('li');
+ //   li.className = 'list-card';
+ //   li.innerHTML = `
+ //     <span class="list-card-title">${escapeHtml(list.name)}</span>
+ //     <span class="badge">${list.active_count}</span>
+  //  `;
+//    li.addEventListener('click', () => openListView(list.id, list.name));
+//    listsContainer.appendChild(li);
+//  });
+//});
+
 socket.on('lists_updated', (lists) => {
+  // If your spouse deleted the list you currently have open, kick back to the list view
+  if (currentListId && !lists.some(l => l.id === currentListId)) {
+    alert('This list was deleted on another device.');
+    showListsView();
+  }
+
   listsContainer.innerHTML = '';
   if (lists.length === 0) {
     listsContainer.innerHTML = `<li style="color:var(--text-muted); text-align:center; padding:20px;">No lists yet. Tap "+ New List" above.</li>`;
@@ -79,6 +103,20 @@ document.getElementById('btn-rename-list').addEventListener('click', () => {
     socket.emit('rename_list', { id: currentListId, name: choice.trim() });
     currentListName = choice.trim();
     document.getElementById('current-list-title').textContent = choice.trim();
+  }
+});
+
+// Delete List
+document.getElementById('btn-delete-list').addEventListener('click', () => {
+  if (!currentListId) return;
+
+  const confirmed = confirm(
+    `Are you sure you want to permanently delete "${currentListName}" and all of its items?`
+  );
+
+  if (confirmed) {
+    socket.emit('delete_list', currentListId);
+    showListsView(); // Return back to the list of lists
   }
 });
 
